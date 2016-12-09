@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;font-size: 20px;list-style: none;}
+	</style>
+</head>
+<body>
+	<input id="bu" type="button" value="加载请求">
+	<div id="ds">
+		请求加载中.....
+	</div>
+</body>
+<script type="text/javascript">
+	var bu=document.getElementById('bu');
+	var ds=document.getElementById('ds');
+	bu.onclick=function () {
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','test2.json',true);
+		xhr.send(null);
+		xhr.onreadystatechange=function () {
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					var s=xhr.responseText;
+					var sj=eval('('+s+')');
+					// console.log(sj);
+					// ds.innerHTML=s;
+					var nr='';
+					// xhr.open('get','test1.json',true);
+					// nr+='书名:'+sj.title[0]+' 作者:'+sj.author[0]+' 出版日期:'+sj.year[0]+' 价格'+sj.price[0];
+					// for (var i = 0; i < sj.title.length; i++) {
+					// 	nr+='<li>书名:'+sj.title[i]+' 作者:'+sj.author[i]+' 出版日期:'+sj.year[i]+' 价格'+sj.price[i]+'</li>';
+					// };
+					for (var i = 0; i < sj.length; i++) {
+						nr+='<li>书名:'+sj[i].title+' 作者:'+sj[i].author+' 出版日期:'+sj[i].year+' 价格:'+sj[i].price+'</li>';
+						console.log(sj.length);
+					};
+					ds.innerHTML='<ul>'+nr+'</ul>';
+				}else{
+					alert('服务器状态'+xhr.status);
+				}
+			}
+		}
+	}
+</script>
+</html>

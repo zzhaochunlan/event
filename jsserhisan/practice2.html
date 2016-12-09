@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;list-style: none;font-size: 20px;}
+	</style>
+</head>
+<body>
+	<input id="bu" type="button" value="请求验证">
+	<div id="ds">
+		请求验证中......
+	</div>
+</body>
+<script type="text/javascript">
+	var bu=document.getElementById('bu');
+	var ds=document.getElementById('ds');
+	bu.onclick=function () {
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','test.xml',true);
+		xhr.send(null);
+		xhr.onreadystatechange=function () {
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					var s=xhr.responseXML;
+					var ti=s.getElementsByTagName('title');
+					var au=s.getElementsByTagName('author');
+					var ye=s.getElementsByTagName('year');
+					var pr=s.getElementsByTagName('price');
+					var nr='';
+					for (var i = 0; i < ti.length; i++) {
+						nr+='<li>书名'+ti[i].innerHTML+' 作者:'+au[i].innerHTML+' 出版日期:'+ye[i].innerHTML+' 价格:'+pr[i].innerHTML+'</li>';
+					}
+					ds.innerHTML='<ul>'+nr+'</ul>';
+				}else{
+					alert('服务器'+xhr.status)
+				}
+			}
+		}
+	}
+</script>
+</html>

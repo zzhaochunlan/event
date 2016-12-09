@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;font-size: 20px;list-style: none;}
+	</style>
+</head>
+<body>
+	<input id="bu" type="button" value="加载内容">
+	<div id="ds">
+		请求加载中....
+	</div>
+</body>
+<script type="text/javascript">
+	var bu=document.getElementById('bu');
+	var ds=document.getElementById('ds');
+	var sjc=new Date().getTime();
+	bu.onclick=function () {
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','test.txt?sjc='+sjc,true);
+		xhr.send(null);
+		xhr.onload=function () {
+			var s=xhr.responseText;
+			// console.log(typeof(s));
+			ds.innerHTML=s;
+		}
+	}
+</script>
+</html>

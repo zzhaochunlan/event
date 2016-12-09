@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		#but{
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" id="but" value="请求数据">
+	<div id="ds">
+		数据请求中....
+	</div>
+</body>
+<script type="text/javascript">
+	var but=document.getElementById('but');
+	var ds=document.getElementById('ds');
+	but.onclick=function () {
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','test1.json?',true);
+		xhr.send(null);
+		xhr.onreadystatechange=function  () {
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					var s=xhr.responseText;
+					var sj=eval('('+s+')');
+					// console.log(sj)
+					ds.innerHTML='书名:'+sj.title[0]+'<br/>'+'作者:'+sj.author[0]+'<br/>'+'价格:'+sj.price[0];
+				}else{
+					alert('服务器的状态'+xhr.status)
+				}
+			}
+		}
+	}
+</script>
+</html>

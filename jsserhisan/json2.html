@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding:0;font-size: 55px;color: red;}
+		</style>
+	</head>
+	<body>
+		<input type="button"  id="but" value="请求数据" />
+		<div id="ds">
+			数据请求中。。。。。
+		</div>
+	</body>
+	<script type="text/javascript">
+		var but=document.getElementById("but");
+		var ds=document.getElementById("ds");
+		but.onclick=function (){
+			var xhr=new XMLHttpRequest();//新创建一个xml对象
+			xhr.open('get','test2.json?sjc='+new Date().getTime(),true);
+			xhr.send(null);
+			xhr.onreadystatechange=function (){
+					if(xhr.readyState==4){
+						if(xhr.status==200){
+							var fsj=xhr.responseText;
+//							console.log(typeof fsj);//看一下是什么类型
+//							console.log(fsj);
+							var sj=eval('('+fsj+')');
+//							console.log(sj);
+							var nr='';
+//							ds.innerHTML='书名:'+sj[0].title+' 作者:'+sj[0].author+' 价格:'+sj[0].price;
+							
+							for (var i = 0; i < sj.length; i++) {
+								nr+='<li>书名:'+sj[i].title+' 作者:'+sj[i].author+' 出版日期 :'+sj[i].year+' 价格:'+sj[i].price+'</li>';
+								console.log(sj.length)
+							}
+							ds.innerHTML='<ul>'+nr+'</ul>';
+						}else {
+							alert('服务器状态'+xhr.status); 
+						}
+					}
+
+				
+			}
+		}
+	</script>
+</html>

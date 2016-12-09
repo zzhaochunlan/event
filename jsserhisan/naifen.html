@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0;font-size: 20px;list-style: none;}
+	</style>
+</head>
+<body>
+	<input id="te" type="text" value="">
+	<input id='bu' type="button" value='提交'>
+	<div id="ds">
+		各种奶粉....
+	</div>
+</body>
+<script type="text/javascript">
+	var te=document.getElementById('te');
+	var ds=document.getElementById('ds');
+	bu.onclick=function () {
+		te.value='';
+		var xhr=new XMLHttpRequest();
+		xhr.open('get','sada.json',true);
+		xhr.send(null);
+		xhr.onreadystatechange=function () {
+			if (xhr.readyState==4) {
+				if (xhr.status==200) {
+					var s=xhr.responseText;
+					// console.log(typeof s);
+					var sj=eval('('+s+')');
+					// console.log(sj)
+					if (te.value<=5&&te.value>=0&&te.value!='') {
+						var nr='';
+						nr+='图片:'+sj[6].url+' 标题:'+sj[6].tit+' min:'+sj[6].min+' max:'+sj[6].max+' 价格:'+sj[6].jge;
+					}else{
+						nr='各种奶粉';
+					}
+					ds.innerHTML=nr;
+				}else{
+					alert('服务器请求'+xhr.status);
+				}
+			}
+		}
+	}
+</script>
+</html>

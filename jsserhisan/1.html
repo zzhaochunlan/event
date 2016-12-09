@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		*{margin: 0;padding: 0}
+		#but{
+			font-size: 20px;
+		}
+	</style>
+</head>
+<body>
+	<input type="button" id="but" value="请求数据">
+	<div id="ds">
+		数据请求中....
+	</div>
+</body>
+<script type="text/javascript">
+	var but=document.getElementById('but');
+	var ds=document.getElementById('ds');
+	but.onclick=function () {
+		// 第一步买手机
+		var xhr=new XMLHttpRequest();//新创建一个XML的对象
+		// 第二步拨号
+		// 参数1有get/post请求用get发送用post
+		// 参数2请求的路径一般是服务器地址为了防止请求到缓存
+		// 参数3返回布尔值一般用true同步
+		xhr.open('get','test.txt',true);
+		//get请求写null或者不写
+		//post写你要发送的东西
+		xhr.send(null);
+		// 当
+		xhr.onload=function () {
+			var s=xhr.responseText;
+			// responseText请求回来的都是字符串类型的;
+			ds.innerHTML=s;
+		}
+	}
+</script>
+</html>
